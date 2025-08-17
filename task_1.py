@@ -46,30 +46,18 @@ class OnlineSalesRegisterCollector:
         return self.__number_items
     
     def add_item_to_cheque(self, name):
-        try:
-            if len(name) == 0 or len(name) > 40:
-                raise ValueError('Нельзя добавить товар, если в его названии нет символов или их больше 40')            
-            if name not in self.__item_price:
-                raise NameError('Позиция отсутствует в товарном справочнике')            
-            self.__name_items.append(name)
-            self.__number_items +=1
-        except ValueError as e:
-            print(e)            
-        except NameError as e:
-            print(e)
-        except Exception:
-            print('Произошла неизвестная ошибка при добавлении товара в чек')
+        if len(name) == 0 or len(name) > 40:
+            raise ValueError('Нельзя добавить товар, если в его названии нет символов или их больше 40')            
+        if name not in self.__item_price:
+            raise NameError('Позиция отсутствует в товарном справочнике')            
+        self.__name_items.append(name)
+        self.__number_items +=1
 
     def delete_item_from_check(self, name):
-        try:
-            if name not in self.__name_items:
-                raise NameError('Позиция отсутствует в чеке')            
-            self.__name_items.remove(name)
-            self.__number_items -=1
-        except NameError as e:
-            print(e)
-        except Exception:
-            print('Произошла неизвестная ошибка при удалении товара из чека')
+        if name not in self.__name_items:
+            raise NameError('Позиция отсутствует в чеке')            
+        self.__name_items.remove(name)
+        self.__number_items -=1
 
     def check_amount(self):
         total = []
@@ -106,16 +94,11 @@ class OnlineSalesRegisterCollector:
 
     @staticmethod
     def get_telephone_number(telephone_number):
-        try:
-            if type(telephone_number) != int:
-                raise ValueError('Необходимо ввести цифры')
-            if len(str(telephone_number)) > 10:
-                raise ValueError('Необходимо ввести 10 цифр после "+7"')            
-            return f'+7{telephone_number}'        
-        except ValueError as e:
-            print(e)
-        except Exception:
-            print('Произошла неизвестная ошибка при получении номера телефона')
+        if type(telephone_number) != int:
+            raise ValueError('Необходимо ввести цифры')
+        if len(str(telephone_number)) > 10:
+            raise ValueError('Необходимо ввести 10 цифр после "+7"')            
+        return f'+7{telephone_number}'        
 
     @staticmethod
     def get_date_and_time():
